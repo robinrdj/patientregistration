@@ -1,0 +1,127 @@
+.patient-list-page {
+  padding: 1rem;
+  font-family: sans-serif;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.header .title {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.patient-table thead {
+  background-color: #2563eb;
+  color: white;
+}
+
+.search-container {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.search-input {
+  padding: 0.5rem;
+  width: 60%;
+  max-width: 400px;
+  margin-right: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.search-button,
+.toggle-button,
+.export-buttons button,
+.delete-btn {
+  padding: 0.5rem 1rem;
+  margin: 0.2rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #f0f0f0;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.table-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.export-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.patient-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.patient-table th,
+.patient-table td {
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.sortable-header {
+  cursor: pointer;
+}
+
+.sortable-column {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.sort-img {
+  width: 18px;
+  height: 18px;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.no-patient-msg {
+  text-align: center;
+  color: #888;
+  padding: 2rem 1rem;
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.loader {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #555;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 600px) {
+  .phone-column-hide {
+    display: none;
+  }
+}
