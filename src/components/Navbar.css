@@ -4,10 +4,9 @@
   --navbar-border: #bae6fd;
   --navbar-hover-bg: #bae6fd;
   --navbar-hover-text: #0c4a6e;
-  --focus-outline: #2563eb; 
+  --focus-outline: #2563eb;
 }
 
-/* Navbar Container */
 .navbar {
   display: flex;
   justify-content: space-between;

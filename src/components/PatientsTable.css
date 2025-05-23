@@ -120,6 +120,7 @@
   }
 }
 
+/* responsive design */
 @media (max-width: 600px) {
   .phone-column-hide {
     display: none;
