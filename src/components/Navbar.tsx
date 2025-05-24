@@ -10,7 +10,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-import logo from "../assets/logoWhiteTransparent.png";
+import logo from "../assets/LogoWhiteTransparent.png";
 
 const pages = [
   { name: "Home", path: "/home" },
