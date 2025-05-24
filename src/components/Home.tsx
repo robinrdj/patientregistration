@@ -20,6 +20,9 @@ const Home: React.FC = () => {
         <Link to="/advancedQuery" className="home-link">
           ➜ Advanced Query
         </Link>
+        <Link to="/excel" className="home-link">
+          ➜ Register Patient Via Excel
+        </Link>
       </div>
     </div>
   );

@@ -3,6 +3,7 @@
   margin: auto;
   padding: 1rem;
   font-family: Arial, sans-serif;
+  padding-top: 100px;
 }
 
 header {
@@ -30,28 +31,6 @@ header h1 {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
-}
-
-/* Tablet view (≥600px) */
-@media (min-width: 600px) {
-  .form-box {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .medical-history {
-    grid-column: 1 / -1;
-  }
-}
-
-/* Desktop view (≥900px) */
-@media (min-width: 900px) {
-  .form-box {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .medical-history {
-    grid-column: auto;
-  }
 }
 
 /* Fieldset and inputs styling */
@@ -99,14 +78,14 @@ form textarea {
 }
 
 .form-buttons button {
-  padding: 0.6rem 1.2rem;
-  border: none;
-  border-radius: 6px;
-  background-color: #2563eb;
-  color: white;
+  padding: 0.5rem 1rem;
+  margin: 0.2rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: rgb(92, 138, 240);
   cursor: pointer;
-  font-weight: bold;
-  transition: background 0.3s;
+  font-size: 0.9rem;
+  color: white;
 }
 
 .form-buttons button:hover {
@@ -138,5 +117,28 @@ form textarea {
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+/* responsive design */
+/* Tablet view (≥600px) */
+@media (min-width: 768px) {
+  .form-box {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .medical-history {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Desktop view (≥900px) */
+@media (min-width: 1024px) {
+  .form-box {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .medical-history {
+    grid-column: auto;
   }
 }

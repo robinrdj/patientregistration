@@ -6,7 +6,6 @@ import { Copy, Download, Clipboard } from "lucide-react";
 import * as XLSX from "xlsx";
 
 const AdvancedQuery: React.FC = () => {
-  // state variables
   const [isQuerying, setIsQuerying] = useState(false);
   const { ready } = useDBStatus();
   const [specificQuery, setSpecificQuery] = useState("SELECT * FROM patients");
@@ -17,14 +16,14 @@ const AdvancedQuery: React.FC = () => {
     err?: string;
   } | null>(null);
 
-  // functions
-  // handle functions
   const handleExampleSetting = (example: string) => {
     setSpecificQuery(example);
   };
+
   const handleChangesInQuery = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setSpecificQuery(e.target.value);
   };
+
   const handleSpecificQuery = async () => {
     if (!specificQuery.trim()) return;
     setIsQuerying(true);
@@ -39,13 +38,13 @@ const AdvancedQuery: React.FC = () => {
       setQueryResult({
         result: false,
         data: [],
-        err: err.message || "Some error occured while querying",
+        err: err.message || "Some error occurred while querying",
       });
     } finally {
       setIsQuerying(false);
     }
   };
-  // copy json
+
   const copyJson = (text: string) => {
     navigator.clipboard.writeText(text).then(() => {
       setSelect(true);
@@ -53,8 +52,6 @@ const AdvancedQuery: React.FC = () => {
     });
   };
 
-  // Download functions
-  // Download csv file
   const downloadResultsCSV = () => {
     if (!queryResult?.data || queryResult.data.length === 0) return;
     const csvContent = [
@@ -71,7 +68,7 @@ const AdvancedQuery: React.FC = () => {
     link.download = "query_results.csv";
     link.click();
   };
-  // Download JSON file
+
   const downloadResultsJSON = () => {
     if (!queryResult?.data || queryResult.data.length === 0) return;
     const jsonStr = JSON.stringify(queryResult.data, null, 2);
@@ -81,10 +78,28 @@ const AdvancedQuery: React.FC = () => {
     link.download = "query_results.json";
     link.click();
   };
-  // Download Excel file
+
+  const formatDate = (isoDate: string) => {
+    const date = new Date(isoDate);
+    if (isNaN(date.getTime())) return isoDate;
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
   const downloadResultsExcel = () => {
     if (!queryResult?.data || queryResult.data.length === 0) return;
-    const worksheet = XLSX.utils.json_to_sheet(queryResult.data);
+
+    const formattedData = queryResult.data.map((row) => {
+      const newRow = { ...row };
+      if (newRow.dob) {
+        newRow.dob = formatDate(newRow.dob);
+      }
+      return newRow;
+    });
+
+    const worksheet = XLSX.utils.json_to_sheet(formattedData);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Results");
     XLSX.writeFile(workbook, "query_results.xlsx");
@@ -110,7 +125,7 @@ const AdvancedQuery: React.FC = () => {
             Load Example
           </button>
           <button onClick={handleSpecificQuery} disabled={isQuerying}>
-            {isQuerying ? "Running" : "Run Example"}
+            {isQuerying ? "Running" : "Run Query"}
           </button>
         </div>
       </div>
@@ -123,7 +138,6 @@ const AdvancedQuery: React.FC = () => {
               className="results-icons"
               style={{ display: "flex", gap: "8px" }}
             >
-              {/* Copy json button*/}
               <button
                 onClick={() =>
                   copyJson(JSON.stringify(queryResult.data, null, 2))
@@ -134,8 +148,6 @@ const AdvancedQuery: React.FC = () => {
                 {select ? <Clipboard size={16} /> : <Copy size={16} />}
                 <span style={{ fontSize: 12, marginLeft: 4 }}>Copy JSON</span>
               </button>
-
-              {/* download buttons*/}
               <button
                 onClick={downloadResultsJSON}
                 title="Download JSON"

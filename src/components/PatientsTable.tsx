@@ -132,8 +132,8 @@ const PatientsTable: React.FC = () => {
   const downloadPatientDataExcel = () => {
     const formatted = patients.map(({ id, ...rest }) => ({
       ...rest,
-      dob: new Date(rest.dob).toLocaleDateString(),
-      created_at: new Date(rest.created_at).toLocaleDateString(),
+      dob: new Date(rest.dob).toLocaleDateString("en-GB"),
+      created_at: new Date(rest.created_at).toLocaleDateString("en-GB"),
     }));
     const sheet = XLSX.utils.json_to_sheet(formatted);
     const book = XLSX.utils.book_new();
@@ -151,130 +151,136 @@ const PatientsTable: React.FC = () => {
 
   return (
     <div className="patient-list-page">
-      <header className="header">
-        <h1 className="title">Patients Table</h1>
-      </header>
+      <div className="main-content">
+        <header className="header">
+          <h1 className="title">Patients Table</h1>
+        </header>
 
-      <div className="search-container">
-        {searchMode && (
-          <>
-            <input
-              type="text"
-              className="search-input"
-              placeholder="Enter the name to search for patient"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-            />
-            <button onClick={handleSearch} className="search-button">
-              Search
-            </button>
-          </>
-        )}
-      </div>
-
-      <div className="table-top">
-        <button
-          onClick={() => setSearchMode(!searchMode)}
-          className="toggle-button"
-        >
-          {searchMode ? "Search Mode off" : "Search Mode on"}
-        </button>
-
-        <div className="export-buttons">
-          <button
-            onClick={downloadPatientDataJson}
-            disabled={patients.length === 0}
-          >
-            <Download size={16} /> Export JSON
-          </button>
-          <button
-            onClick={downloadPatientDataExcel}
-            disabled={patients.length === 0}
-          >
-            <Download size={16} /> Export Excel
-          </button>
-        </div>
-      </div>
-
-      {isLoading ? (
-        <div className="loader-container">
-          <div className="loader"></div>
-        </div>
-      ) : patients.length === 0 ? (
-        <div className="no-patient-msg">
-          {search ? (
+        <div className="search-container">
+          {searchMode && (
             <>
-              <h3>No patients match your search criteria.</h3>
-              <p>
-                Kindly switch off the search mode to get all data in the table.
-              </p>
+              <input
+                type="text"
+                className="search-input"
+                placeholder="Enter the name to search for patient"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+              />
+              <button onClick={handleSearch} className="search-button">
+                Search
+              </button>
             </>
-          ) : (
-            <p>
-              There are no patients at this moment. Get started by adding a new
-              patient.
-            </p>
           )}
         </div>
-      ) : (
-        <div className="table-container">
-          <table className="patient-table">
-            <thead>
-              <tr>
-                {[
-                  { label: "Name", field: "lastname" },
-                  { label: "Gender", field: "gender" },
-                  { label: "Date of Birth", field: "dob" },
-                  { label: "Phone", field: "phone", hideOnMobile: true },
-                  {
-                    label: "Registration Date",
-                    field: "created_at",
-                    hideOnMobile: true,
-                  },
-                ].map(({ label, field, hideOnMobile }) => (
-                  <th
-                    key={field}
-                    onClick={() => changeSortOrder(field as keyof Patient)}
-                    className={`sortable-header ${
-                      hideOnMobile ? "phone-column-hide" : ""
-                    }`}
-                  >
-                    <div className="sortable-column">
-                      {label}{" "}
-                      <img src={SortIcon} alt="sort" className="sort-img" />
-                    </div>
-                  </th>
-                ))}
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {sortedPatients.map((patient) => (
-                <tr key={patient.id}>
-                  <td>
-                    {patient.firstname} {patient.lastname}
-                  </td>
-                  <td className="capitalize">{patient.gender}</td>
-                  <td>{new Date(patient.dob).toLocaleDateString()}</td>
-                  <td className="phone-column-hide">{patient.phone || "--"}</td>
-                  <td className="phone-column-hide">
-                    {new Date(patient.created_at).toLocaleDateString()}
-                  </td>
-                  <td>
-                    <button
-                      onClick={() => handleDelete(patient.id)}
-                      className="delete-btn"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+
+        <div className="table-top">
+          <button
+            onClick={() => setSearchMode(!searchMode)}
+            className="toggle-button"
+          >
+            {searchMode ? "Search Mode off" : "Search Mode on"}
+          </button>
+
+          <div className="export-buttons">
+            <button
+              onClick={downloadPatientDataJson}
+              disabled={patients.length === 0}
+            >
+              <Download size={16} /> Export JSON
+            </button>
+            <button
+              onClick={downloadPatientDataExcel}
+              disabled={patients.length === 0}
+            >
+              <Download size={16} /> Export Excel
+            </button>
+          </div>
         </div>
-      )}
+
+        {isLoading ? (
+          <div className="loader-container">
+            <div className="loader"></div>
+          </div>
+        ) : patients.length === 0 ? (
+          <div className="no-patient-msg">
+            {search ? (
+              <>
+                <h3>No patients match your search criteria.</h3>
+                <p>
+                  Kindly switch off the search mode to get all data in the
+                  table.
+                </p>
+              </>
+            ) : (
+              <p>
+                There are no patients at this moment. Get started by registering
+                a new patient. You could go to register in the navbar to
+                register a new patient.
+              </p>
+            )}
+          </div>
+        ) : (
+          <div className="table-container">
+            <table className="patient-table">
+              <thead>
+                <tr>
+                  {[
+                    { label: "Name", field: "lastname" },
+                    { label: "Gender", field: "gender" },
+                    { label: "Date of Birth", field: "dob" },
+                    { label: "Phone", field: "phone", hideOnMobile: true },
+                    {
+                      label: "Registration Date",
+                      field: "created_at",
+                      hideOnMobile: true,
+                    },
+                  ].map(({ label, field, hideOnMobile }) => (
+                    <th
+                      key={field}
+                      onClick={() => changeSortOrder(field as keyof Patient)}
+                      className={`sortable-header ${
+                        hideOnMobile ? "phone-column-hide" : ""
+                      }`}
+                    >
+                      <div className="sortable-column">
+                        {label}{" "}
+                        <img src={SortIcon} alt="sort" className="sort-img" />
+                      </div>
+                    </th>
+                  ))}
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sortedPatients.map((patient) => (
+                  <tr key={patient.id}>
+                    <td>
+                      {patient.firstname} {patient.lastname}
+                    </td>
+                    <td className="capitalize">{patient.gender}</td>
+                    <td>{new Date(patient.dob).toLocaleDateString("en-GB")}</td>
+                    <td className="phone-column-hide">
+                      {patient.phone || "--"}
+                    </td>
+                    <td className="phone-column-hide">
+                      {new Date(patient.created_at).toLocaleDateString("en-GB")}
+                    </td>
+                    <td>
+                      <button
+                        onClick={() => handleDelete(patient.id)}
+                        className="delete-btn"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

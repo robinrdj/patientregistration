@@ -5,7 +5,7 @@ const Footer: React.FC = () => {
   return (
     <footer className="footer">
       <hr className="footer-divider" />
-      <p className="footer-text">© 2024 Medblocks. All rights reserved.</p>
+      <p className="footer-text">© 2025 Medblocks. All rights reserved.</p>
     </footer>
   );
 };

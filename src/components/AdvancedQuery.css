@@ -1,8 +1,10 @@
 .query-container {
   padding: 1rem;
   max-width: 800px;
+  min-width: 44vw;
   margin: auto;
   font-family: Arial, sans-serif;
+  padding-top: 100px;
 }
 
 .query-controls {
@@ -31,11 +33,16 @@
 
 .query-buttons button {
   padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 6px;
-  background-color: #007bff;
-  color: white;
+  margin: 0.2rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: rgb(92, 138, 240);
   cursor: pointer;
+  font-size: 0.9rem;
+  color: white;
+}
+.query-buttons button:hover {
+  background-color: #1e4fd6;
 }
 
 .query-buttons button:disabled {

@@ -3,6 +3,16 @@
   font-family: sans-serif;
   max-width: 1000px;
   margin: auto;
+  padding-top: 100px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .header .title {
@@ -121,7 +131,7 @@
 }
 
 /* responsive design */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .phone-column-hide {
     display: none;
   }

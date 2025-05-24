@@ -46,6 +46,10 @@ const RegistrationForm: React.FC = () => {
     if (formData.phone && !/^\d{10}$/.test(formData.phone)) {
       err.phone = "phone number must be exactly 10 digits";
     }
+    if (formData.dob && new Date(formData.dob) > new Date()) {
+      err.dob = "Date of birth cannot be in the future";
+    }
+
     if (!formData.gender) err.gender = "Gender is missing";
     if (!formData.dob.trim()) err.dob = "dob is missing";
     if (!formData.firstName.trim()) err.firstName = "first name is missing";

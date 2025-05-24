@@ -1,14 +1,10 @@
-:root {
-  --navbar-height: 64px;
-}
-
 .home-container {
   position: relative;
   top: 0;
   left: 0;
   right: 0;
-  padding-top: var(--navbar-height);
-  min-height: calc(100vh - var(--navbar-height));
+  padding-top: 64px; /* direct padding for fixed navbar */
+  min-height: calc(100vh - 64px);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
